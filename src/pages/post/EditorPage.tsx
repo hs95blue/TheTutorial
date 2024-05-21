@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 const EditorContainer = styled.div`
@@ -46,7 +46,7 @@ const EditorPage = () => {
       <TextArea
         placeholder="Write your post here..."
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
       />
       <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
     </EditorContainer>

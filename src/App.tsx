@@ -3,19 +3,14 @@ import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './styles/theme';
 import GlobalStyle from './styles/GlobalStyle';
 import RoutesComponent from './routes';
+import useThemeStore from './store/client/themeStore';
 
 const App = () => {
-  const [theme, setTheme] = React.useState('light');
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
-
+const { theme } = useThemeStore();
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyle />
       <RoutesComponent />
-      <button onClick={toggleTheme}>Toggle Theme</button>
     </ThemeProvider>
   );
 };

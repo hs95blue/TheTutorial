@@ -1,14 +1,15 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import Footer from './Footer';
 
 const MainLayout = () => {
   return (
     <div>
-      <header>Header Content</header>
+      <Header/>
       <main>
         <Outlet />  {/* 중첩된 라우트의 컴포넌트가 여기에 렌더링됩니다 */}
       </main>
-      <footer>Footer Content</footer>
+      <Footer/>
     </div>
   );
 };

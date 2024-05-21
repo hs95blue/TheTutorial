@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FaGithub, FaSun, FaMoon } from 'react-icons/fa';
-
-const HeaderContainer = styled.header`
+import useThemeStore from '../../../store/client/themeStore';
+interface Theme {
+  body: string;
+  text: string;
+}
+const HeaderContainer = styled.header<{ theme: Theme }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
-  background-color: ${({ theme }) => theme.body};
-  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }: { theme: Theme }) => theme.body};
+  color: ${({ theme }: { theme: Theme }) => theme.text};
 `;
 
 const Logo = styled.h1`
@@ -18,7 +22,7 @@ const Logo = styled.h1`
 
 const Menu = styled.nav`
   display: flex;
-  gap: 20px;
+  gap: 10px;
 `;
 
 const MenuItem = styled.a`
@@ -33,18 +37,28 @@ const SearchInput = styled.input`
 `;
 
 const ToggleButton = styled.button`
+  width : 30px;
+  height : 30px;
   background: none;
   border: none;
   cursor: pointer;
   color: inherit;
+  font-size: 16px;
+  outline: none; // Attempt to prevent outline on click
+  &:focus {
+    outline: none; // Ensure no outline on focus
+  }
+`;
+
+const ToolkitDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Header = () => {
-  const [theme, setTheme] = React.useState('light');
+  const { theme, toggleTheme } = useThemeStore();
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
 
   return (
     <HeaderContainer>
@@ -54,13 +68,15 @@ const Header = () => {
         <MenuItem href="#">About</MenuItem>
         <MenuItem href="#">Services</MenuItem>
       </Menu>
-      <SearchInput type="text" placeholder="Search..." />
-      <ToggleButton onClick={toggleTheme}>
-        {theme === 'light' ? <FaMoon /> : <FaSun />}
-      </ToggleButton>
-      <ToggleButton>
-        <FaGithub />
-      </ToggleButton>
+      <ToolkitDiv>
+        <SearchInput type="text" placeholder="Search..." />
+        <ToggleButton onClick={toggleTheme}>
+          {theme === 'light' ? <FaMoon /> : <FaSun />}
+        </ToggleButton>
+        <ToggleButton>
+          <FaGithub />
+        </ToggleButton>
+      </ToolkitDiv>
     </HeaderContainer>
   );
 };
